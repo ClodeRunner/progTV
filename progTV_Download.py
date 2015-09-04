@@ -15,5 +15,5 @@ dossierNomLocal = dossierLocal + nomLocal
 
 # actions - download puis unzip du fichier
 urllib.urlretrieve(urlnomDistant, dossierNomLocal)
-with zipfile.ZipFile('complet.zip', "r") as z:
-    z.extractall('./')
+with zipfile.ZipFile(dossierNomLocal, "r") as z:
+    z.extractall(dossierLocal)
