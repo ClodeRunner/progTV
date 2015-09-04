@@ -8,9 +8,6 @@ Ce script est mon premier essai en python. Je voulais etre averti des films de s
 0. La recherche est envoyee par SMS avec l'API de Free mobile 
 
 
-Please see our [contributing guidelines](CONTRIBUTING.md) before reporting an issue.
-
-
 Installation
 -----------
 
