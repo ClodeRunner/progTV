@@ -14,8 +14,6 @@ from xml.dom import minidom
 # 2-4 le programme est il diffuse sur les chaines listees ?  Faire la conversion entre IDchaine du programme et IDchaine TV
 # 3- envoyer par sms
 
-# debut SMS : FILMS SF 24/08 |
-# puis chaine, horaire, titre ex : RTL9 - 23:10 - Star Trek |
 def sansaccent(ch, encod='utf-8'):
     """Supprime les accents sans changer la casse (majuscules et minuscules)"""
     conv = False
@@ -39,10 +37,9 @@ def sansaccent(ch, encod='utf-8'):
 # les variables
 # -------------
 # pour la recherche dans le xml local
-dateCalJour = '15-01'
+dateCompJour = ''
 nomLocal = 'complet.xml'
-#dossierLocal = '/media/raid/'
-dossierLocal = '/users/nous/'
+dossierLocal = '/users/progTV/'
 dossierNomLocal = dossierLocal + nomLocal
 titreFilmXML = ''
 titreFilm = ''
@@ -50,28 +47,30 @@ descProgrTVXML = ''
 descProgrTV = ''
 position = 0
 filmCanal = 0
-dateHeureDebut = ''
+dateDebut = ''
+heureDebut = ''
 tempChaineTV1 = 'a'
 tempChaineTV2 = 'a'
-chaineTV = ''
+tempDateHeure = ''
+IDchaineTV = ''
+chainesTV1 = ["TF1","France2","France3","France5","M6","Arte","D8","W9","TMC","NT1","NRJ12","France4","D17","Gulli","AB1","LocIDF","DisneyChannel","FranceO","GameOne","RTL9","SyFy","HD1","6ter","Num23","RMC","Cherie25","Paramount"]
+chainesTV2 = ["C1","C2","C3","C5","C6","C7","C8","C9","C10","C11","C12","C13","C17","C18","C23","C40","C73","C119","C121","C199","C201","C4131","C4133","C4134","C4135","C4136","C4141"]
+IDlibTV = 0
+prgTVrecherche = "film de science-fiction"
+
 #  - url et infos pour SMS free
 urlSMS ='https://smsapi.free-mobile.fr/sendmsg?'
 userSMS = '12345678'
 passSMS = 'abcDEFGHIJklmn'
-msgSMS = ''
+msgSMS = prgTVrecherche
 
 # -------------
 # les actions
 # -------------
-# 1 - definir la chaine de caracteres datedemain pour comparer aux donnees xml
+# 1 - definir la chaine de caracteres date demain pour comparer aux donnees xml
 today = datetime.date.today( )
 tomorrow = today + datetime.timedelta(days=1)
-print (tomorrow)
-#emits: 2004-11-17 2004-11-18 2004-11-19
-dateCompJour = '20' + time.strftime('%y%m%d', tomorrow)
-print (dateCompJour)
-# 15-08-17
-# 20150902204000
+dateCompJour = tomorrow.strftime('%Y%m%d')
 
 # 2 - recherche dans le xml local
 doc = minidom.parse(dossierNomLocal)
@@ -80,31 +79,24 @@ for item in items:
 	tempDateHeure = item.getAttribute('start')
 	tempChaineTV1 = str(item.getAttribute('channel'))
 	tempChaineTV2 = tempChaineTV1.strip('.telerama.fr')
-	chaineTV = tempChaineTV2.strip('C')
-	#IDChaineTV = ChaineTV
+	IDchaineTV = tempChaineTV2
 	titreFilmXML = item.getElementsByTagName("title")[0]
 	titreFilm = titreFilmXML.firstChild.data
 	descProgrTVXML = item.getElementsByTagName("category")[1]
 	descProgrTV = descProgrTVXML.firstChild.data
 	
-	position = descProgrTV.find("film de science-fiction")
+	position = descProgrTV.find(prgTVrecherche)
 	if position >= 0:
-		dateHeureDebut = tempDateHeure[6:8] + '/' + tempDateHeure[4:6] + ' ' + tempDateHeure[8:10] + ':' + tempDateHeure[10:12]
-		print (dateHeureDebut)
-		print str(chaineTV)
-		print (titreFilm)
-#		filmCanal = titreFilm.find('Canal')
-#		if filmCanal < 0:
-			#print(titreFilm)
-#			msgSMS = msgSMS + ' -- ' + titreFilm
+		dateDebut = tempDateHeure[0:8]
+		if dateCompJour == dateDebut:
+			heureDebut = tempDateHeure[8:10] + ':' + tempDateHeure[10:12]
+			if IDchaineTV in chainesTV2:
+				IDlibTV = chainesTV2.index(IDchaineTV)				
+				msgSMS = msgSMS + ' | ' + heureDebut + ' ' + chainesTV1[IDlibTV] + ' ' + titreFilm
 
-#msgSMS = sansaccent(msgSMS)
-#msgSMS = msgSMS.replace(' | ', '-')
-#msgSMS = msgSMS.replace('--', '|')
+msgSMS = sansaccent(msgSMS)
 
 # 3 - envoyer par SMS
 urlallSMS = urlSMS + 'user=' + userSMS + '&pass=' + passSMS + '&msg=' + msgSMS
-# print (msgSMS)
-#print (urlallSMS)
-#request = urllib2.urlopen(urlallSMS)
-#request.close
+request = urllib2.urlopen(urlallSMS)
+request.close
