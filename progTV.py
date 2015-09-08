@@ -53,8 +53,8 @@ tempChaineTV1 = 'a'
 tempChaineTV2 = 'a'
 tempDateHeure = ''
 IDchaineTV = ''
-chainesTV1 = ["TF1","France2","France3","France5","M6","Arte","D8","W9","TMC","NT1","NRJ12","France4","D17","Gulli","AB1","LocIDF","DisneyChannel","FranceO","GameOne","RTL9","SyFy","HD1","6ter","Num23","RMC","Cherie25","Paramount"]
-chainesTV2 = ["C1","C2","C3","C5","C6","C7","C8","C9","C10","C11","C12","C13","C17","C18","C23","C40","C73","C119","C121","C199","C201","C4131","C4133","C4134","C4135","C4136","C4141"]
+chainesTV1 = ["TF1","France2","France3","France5","M6","Arte","D8","W9","TMC","NT1","NRJ 12","France4","LCP","BFM TV","iTele","D17","Gulli","AB1","AB Moteurs","Alsace 20","Locales IDF","Disney Channel","Euronews","FranceO","Game One","National Geographic Channel","Nat Geo Wild","NRJ Hits","NRJ Paris","RTL9","Telenantes Nantes 7","TELIF","Vivolta","Voyage","Bloomberg TV","France24","IDF1","Rai Uno","Rai Due","Rai Tre","HD1","Equipe21","6ter","Numero23","RMC","Cherie25","Paramount Channel"]
+chainesTV2 = ["C1","C2","C3","C5","C6","C7","C8","C9","C10","C11","C12","C13","C14","C15","C16","C17","C18","C23","C27","C28","C40","C73","C87","C119","C121","C168","C170","C173","C174","C199","C214","C222","C247","C248","C279","C288","C294","C701","C702","C703","C4131","C4132","C4133","C4134","C4135","C4136","C4141"]
 IDlibTV = 0
 prgTVrecherche = "film de science-fiction"
 

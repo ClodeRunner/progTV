@@ -11,15 +11,29 @@ Ce script est mon premier essai en python. Je voulais etre averti des films de s
 Installation
 -----------
 
+modifier les variables
+Pour l'envoi du SMS par Free :
+```
+userSMS = '12345678'
+passSMS = 'abcDEFGHIJklmn'
 ```
 
+Pour l'emplacement ou stocker les fichiers
 ```
+dossierLocal = '/users/progTV/'
+```
+
+La recherche
+```
+prgTVrecherche = "film de science-fiction"
+```
+
 
 Usage
 -----
 
 ```
-progTV.py
+python ./progTV.py
 
 ```
 J'utilise ensuite les taches CRON pour lancer tous les jours
